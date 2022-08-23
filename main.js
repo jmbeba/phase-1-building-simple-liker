@@ -3,7 +3,26 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
+const modal = document.getElementById("modal");
+const modalMessage = document.getElementById("modal-message");
 
+const hearts = document.querySelectorAll(".like-glyph");
+
+hearts.forEach((heart) => {
+  heart.addEventListener("click", () => {
+    mimicServerCall().then(data => {
+      console.log(data);
+      heart.classList.toggle("activated-heart");
+    }).catch(err => {
+      console.log(err.message);
+      modal.classList.remove("hidden");
+      modalMessage.textContent = err.message;
+      setTimeout(() => {
+        modal.classList.add("hidden");
+      },3000)
+    })
+  })
+})
 
 
 
